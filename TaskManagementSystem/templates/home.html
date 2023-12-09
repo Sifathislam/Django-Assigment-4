@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex gap-5 align-items-start mt-4 flex-wrap justify-content-center">
+    {% for val in data %}
+    
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Task ID: {{val.id}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Assigned Date: {{val.Task_assign_date}}</h6>
+            <p class="card-text">{{val.Task_Description}}</p>
+            <p class="card-text">
+                Category : {% for cate in val.Category.all %} 
+                <button class="btn btn-primary btn-sm m-1" disabled >{{cate.Category_Name}} </button>
+                {% endfor %}
+            </p>
+            
+            {% if val.Is_completed %}
+            <button class="btn btn-success text-center ps-3 pe-3 w-100" disabled >Completed</button>
+            {% else %}
+            <a href="{% url 'edit_task' val.id %}" class="btn btn-warning">Edit</a>
+            <a href="{% url 'delete_task' val.id %}" class="btn btn-danger">Delete</a>
+            {% endif %}
+                
+           
+        </div>
+    </div>
+    
+    {% endfor %}
+</div>
+
+{% endblock content %}
